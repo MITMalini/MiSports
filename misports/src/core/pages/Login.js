@@ -1,7 +1,7 @@
 import React from "react";
-import "./styles/login-styles.css";
+import "../styles/login-styles.css";
 
-const Home = (props) => {
+const Login = (props) => {
   return (
     <div className="container">
       <div className="container01">
@@ -47,4 +47,4 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+export default Login;
