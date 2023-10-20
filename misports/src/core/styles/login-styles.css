@@ -50,7 +50,7 @@
     margin-bottom: 10%;
     flex-direction: column;
     justify-content: center;
-    border: red;
+    border: #E94325;
     border-radius: 10px;
   }
   .container06 {
@@ -62,7 +62,7 @@
     justify-content: center;
   }
   .text {
-    color: rgba(236, 0, 0, 1);
+    color: #E94325;
     height: auto;
     font-size: 10vh;
     text-align: left;
@@ -153,6 +153,6 @@
     font-weight: 900;
     border-width: 0px;
     border-radius: 50px;
-    background-color: rgba(236, 0, 0, 1);
+    background-color: #E94325;
   }
   
