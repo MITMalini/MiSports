@@ -54,3 +54,14 @@
     font-size: 25px;
     font-weight: 900; /* Change color on hover */
   }
+  .active {
+    width: 100%;
+    height: 60%;
+    font-size: 100px;
+    font-weight: 900; 
+    color: black;
+    background-color: white;
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center;/* Change color on hover */
+  }

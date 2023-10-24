@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../styles/navigation-styles.css";
 
 const SideNav = () => {
@@ -9,44 +9,74 @@ const SideNav = () => {
       <div className="side-nav-options">
         <ul className="side-nav-ul">
           <li>
-            <Link to="/dashboard" className="nav-link">
+            <NavLink
+              to="/dashboard"
+              activeclassname="active"
+              className="nav-link"
+            >
               DASHBOARD
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/leaderboard" className="nav-link">
+            <NavLink
+              to="/leaderboard"
+              activeclassname="active"
+              className="nav-link"
+            >
               LEADERBOARD
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/about" className="nav-link">
+            <NavLink
+              to="/upcomingevents"
+              activeclassname="active"
+              className="nav-link"
+            >
               UPCOMING EVENTS
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/" className="nav-link">
-              ADD PLAYER
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" className="nav-link">
-              ADD SPORTS
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="nav-link">
-              ADD EVENT
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" className="nav-link">
+            <NavLink
+              to="/viewallevents"
+              activeclassname="active"
+              className="nav-link"
+            >
               VIEW ALL EVENTS
-            </Link>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/addsports"
+              activeclassname="active"
+              className="nav-link"
+            >
+              ADD SPORTS
+            </NavLink>
           </li>
           <li>
-            <Link to="/about" className="nav-link">
+            <NavLink
+              to="/addevent"
+              activeclassname="active"
+              className="nav-link"
+            >
+              ADD EVENT
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/addplayer"
+              activeclassname="active"
+              className="nav-link"
+            >
+              ADD PLAYER
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/about" activeclassname="active" className="nav-link">
               LOG OUT
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>
