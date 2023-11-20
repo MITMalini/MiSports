@@ -112,7 +112,7 @@
   .textinput-fp {
     width: 80%;
     height: 40%;
-    padding-left: 5%;
+    /* padding-left: 5%; */
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
     font-size: 15px;
     font-weight: 500;
@@ -155,4 +155,82 @@
     border-radius: 50px;
     background-color: #E94325;
   }
-  
+  .button-fp{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+  }
+  /* Modal.css */
+
+/* Modal container */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Adjust this value if necessary */
+}
+/* Modal content */
+.modal-content {
+  margin-left: 30%;
+  margin-top: 10%;
+  width: 40%;
+  height: 60%;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content:center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  border-radius: 10%;
+}
+
+/* Close button */
+.modal-button {
+  color: white;
+  width: 70%;
+  height: 50%;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 900;
+  border-width: 0px;
+  border-radius: 50px;
+  background-color: #E94325;
+}
+.containerloginform{
+    display: flex;
+    width: 100%;
+    height: 30%;
+    align-items:center; /* Vertical centering */
+    justify-content:center;
+    flex-direction:row;
+}
+.text-fp{
+    color: #E94325;
+    height: auto;
+    font-size: 6vh;
+    text-align: left;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    text-decoration: none;
+    letter-spacing: 0.1em; 
+}
+.divinput-fp{
+  height: 40%;
+  width: 80%;
+  border-radius: 50px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.text-fp1{
+  height: auto;
+  font-size: 2vh;
+  text-align: left;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 900;
+  text-decoration: none;
+  letter-spacing: 0.1em; 
+}

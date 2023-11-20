@@ -49,7 +49,7 @@ const AddPlayer = (props) => {
               <div className="containeraddplayerform1">
                 <div className="divlabel">
                   <label htmlFor="team" className="labeltext">
-                    Email Address:
+                    Email:
                   </label>
                 </div>
                 <input
@@ -62,7 +62,7 @@ const AddPlayer = (props) => {
               <div className="containeraddplayerform1">
                 <div className="divlabel">
                   <label htmlFor="team" className="labeltext">
-                    Phone Number:
+                    Phone:
                   </label>
                 </div>
                 <input

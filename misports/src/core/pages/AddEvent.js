@@ -77,7 +77,7 @@ const AddEvent = (props) => {
               <div className="containeraddplayerform1">
                 <div className="divlabel">
                   <label htmlFor="team" className="labeltext">
-                    No. of Participats:
+                    Participats:
                   </label>
                 </div>
                 <input
@@ -85,7 +85,7 @@ const AddEvent = (props) => {
                   type="number"
                   id="house"
                   name="house"
-                  placeholder="Male Participants"
+                  placeholder="Male"
                   min="0"
                 />
                 <input
@@ -93,7 +93,7 @@ const AddEvent = (props) => {
                   type="number"
                   id="house"
                   name="house"
-                  placeholder="Female Participants"
+                  placeholder="Female"
                   min="0"
                 />
               </div>

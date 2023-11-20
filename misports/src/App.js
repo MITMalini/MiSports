@@ -7,6 +7,8 @@ import LEADERBOARD from "./core/pages/Leaderboard";
 import AddPlayer from "./core/pages/AddPlayer";
 import AddSport from "./core/pages/AddSports";
 import AddEvent from "./core/pages/AddEvent";
+import VIEWALLEVENTS from "./core/pages/ViewAllEvents";
+
 // import SideNav from "./core/components/SideNav";
 
 const App = () => {
@@ -33,6 +35,9 @@ const App = () => {
                 </Routes>
                 <Routes>
                   <Route path="/addevent" element={<AddEvent />} />
+                </Routes>
+                <Routes>
+                  <Route path="/viewallevents" element={<VIEWALLEVENTS />} />
                 </Routes>
               </>
             }
