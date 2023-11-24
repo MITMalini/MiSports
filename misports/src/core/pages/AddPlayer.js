@@ -3,6 +3,7 @@ import "../styles/desktop-styles.css";
 import "../styles/monitor-styles.css";
 import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
+import Select from "react-select";
 
 const AddPlayer = (props) => {
   const [firstName, setFirstName] = useState([]);
