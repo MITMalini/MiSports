@@ -14,13 +14,13 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCyoAB1aEZrpYAWQ74kyfv5nurOjb6i_PY",
-  authDomain: "mit-misports.firebaseapp.com",
-  projectId: "mit-misports",
-  storageBucket: "mit-misports.appspot.com",
-  messagingSenderId: "253833234214",
-  appId: "1:253833234214:web:de10314c35e51211fb23e7",
-  measurementId: "G-413GZ0VT8F",
+  apiKey: "AIzaSyCDQZiBFjubFYE0ZzNY7KSDJqOk_3ms1hc",
+  authDomain: "misports-af0ce.firebaseapp.com",
+  projectId: "misports-af0ce",
+  storageBucket: "misports-af0ce.appspot.com",
+  messagingSenderId: "373399957215",
+  appId: "1:373399957215:web:e65030f5b5ad480964c36a",
+  measurementId: "G-F5X55NFZ49",
 };
 
 const app = initializeApp(firebaseConfig);

@@ -29,7 +29,7 @@ const SideNav = () => {
               LEADERBOARD
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               to="/upcomingevents"
               activeclassname="active"
@@ -37,7 +37,7 @@ const SideNav = () => {
             >
               UPCOMING EVENTS
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink
               to="/viewallevents"

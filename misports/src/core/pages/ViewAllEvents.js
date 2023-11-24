@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "../styles/dashboard-styles.css";
-import "../styles/leaderboard-styles.css";
+import "../styles/monitor-styles.css";
+import "../styles/desktop-styles.css";
+import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
 import { projectFirestore } from "../components/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
@@ -28,7 +29,7 @@ const VIEWALLEVENTS = (props) => {
     };
 
     fetchData();
-  }, [events]); // Empty dependency array to run the effect only once on mount
+  }, []); // Empty dependency array to run the effect only once on mount
   return (
     <div>
       <SideNav />
@@ -39,7 +40,7 @@ const VIEWALLEVENTS = (props) => {
           </span>
         </div>
         <div>
-          {error && <p className="error">{error}</p>}
+          {/* {error && <p className="error">{error}</p>} */}
           {/* {isPending === true && <p className="loading">Loading...</p>} */}
 
           {/* Render the data */}

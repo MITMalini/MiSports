@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "../styles/dashboard-styles.css";
-import "../styles/addplayer-styles.css";
+import "../styles/monitor-styles.css";
+import "../styles/desktop-styles.css";
+import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
 import { projectFirestore } from "../components/firebase-config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
 const AddSport = (props) => {
   const [sport, setSport] = useState([]);
@@ -14,23 +15,17 @@ const AddSport = (props) => {
 
     try {
       // Validate if the sport input is not empty
-      if (!sport.trim()) {
+      if (typeof sport !== "string" || !sport.trim()) {
         // Handle empty input error (you can show a message to the user)
         console.error("Sport name cannot be empty");
         return;
       }
-
       // Add a new sport to the Firestore collection
-      await addDoc(sportCollectionRef, { name: sport });
-
+      await addDoc(sportCollectionRef, { Name: sport });
       // Optionally, you can clear the form after submitting
       setSport("");
       alert("Sport added successfully!"); // Set the success message
-
       // Optionally, you can clear the success message after a few seconds
-      setTimeout(() => {
-        alert("");
-      }, 5000);
 
       // Optionally, you can navigate to a different page or show a success message
     } catch (error) {
@@ -52,25 +47,25 @@ const AddSport = (props) => {
           <div className="containeraddplayer2">
             <form className="containeraddsportform" onSubmit={handleAddSport}>
               <div className="containeraddsportform1">
-                <div className="divlabel">
-                  <label htmlFor="age" className="labeltext">
+                <div className="addplayerdivlabel">
+                  <label htmlFor="age" className="addplayerlabeltext">
                     Sport Name:
                   </label>
                 </div>
                 <input
-                  className="divinput"
+                  className="addplayerdivinput"
                   type="text"
                   id="sport"
                   name="sport"
                   value={sport}
                   onChange={(e) => {
                     setSport(e.target.value);
-                    console.log("Sport value:", e.target.value);
+                    console.log("Sport value:", sport);
                   }}
                 />
               </div>
               <div className="containeraddsportform2">
-                <button type="submit" className="button">
+                <button type="submit" className="addplayerbutton">
                   SUBMIT
                 </button>
               </div>

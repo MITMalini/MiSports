@@ -1,5 +1,7 @@
 import React from "react";
-import "../styles/dashboard-styles.css";
+import "../styles/monitor-styles.css";
+import "../styles/desktop-styles.css";
+import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
 
 const Dashboard = (props) => {
