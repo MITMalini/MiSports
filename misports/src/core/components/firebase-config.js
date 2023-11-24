@@ -1,33 +1,40 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import {
   getAuth,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBb5rY8Kr4ioms9cP5Q7HXQHV8SfgFXmQM",
-  authDomain: "misports-fb335.firebaseapp.com",
-  projectId: "misports-fb335",
-  storageBucket: "misports-fb335.appspot.com",
-  messagingSenderId: "160201280710",
-  appId: "1:160201280710:web:52a7f548e0b2cfa61e5bc7",
-  measurementId: "G-74YMV2ZXJG",
+  apiKey: "AIzaSyCDQZiBFjubFYE0ZzNY7KSDJqOk_3ms1hc",
+  authDomain: "misports-af0ce.firebaseapp.com",
+  projectId: "misports-af0ce",
+  storageBucket: "misports-af0ce.appspot.com",
+  messagingSenderId: "373399957215",
+  appId: "1:373399957215:web:e65030f5b5ad480964c36a",
+  measurementId: "G-F5X55NFZ49",
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const projectFirestore = getFirestore(app);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
+// Example usage of signInWithEmailAndPassword
 const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
+    // Redirect or perform actions after a successful login.
+  } catch (error) {
+    console.error("Error signing in:", error);
+    alert("An error occurred while signing in. Please check your credentials.");
   }
 };
 const sendPasswordReset = async (email) => {
@@ -42,13 +49,15 @@ const sendPasswordReset = async (email) => {
 const logout = () => {
   signOut(auth);
 };
+
 export {
   auth,
-  db,
-  signInWithGoogle,
+  projectFirestore,
   logInWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordReset,
   sendPasswordResetEmail,
   logout,
+  signOut,
 };
+// Use the 'auth' object for other authentication-related operations.

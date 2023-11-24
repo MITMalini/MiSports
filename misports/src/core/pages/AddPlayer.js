@@ -1,9 +1,19 @@
-import React from "react";
-import "../styles/dashboard-styles.css";
-import "../styles/addplayer-styles.css";
+import React, { useState } from "react";
+import "../styles/desktop-styles.css";
+import "../styles/monitor-styles.css";
+import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
 
 const AddPlayer = (props) => {
+  const [firstName, setFirstName] = useState([]);
+  const [lastName, setLastName] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [phone, setPhone] = useState([]);
+
+  const GenderOptions = [
+    { _id: "1", value: "Male", label: "Male" },
+    { _id: "2", value: "Female", label: "Female" },
+  ];
   return (
     <div>
       <SideNav />
@@ -17,29 +27,39 @@ const AddPlayer = (props) => {
           <div className="containeraddplayer2">
             <form className="containeraddplayerform">
               <div className="containeraddplayerform1">
-                <div className="divlabel">
-                  <label htmlFor="name" className="labeltext">
+                <div className="addplayerdivlabel">
+                  <label htmlFor="name" className="addplayerlabeltext">
                     First Name:
                   </label>
                 </div>
-                <input className="divinput" type="text" id="name" name="name" />
+                <input
+                  className="addplayerdivinput"
+                  type="text"
+                  id="name"
+                  name="name"
+                />
               </div>
               <div className="containeraddplayerform1">
-                <div className="divlabel">
-                  <label htmlFor="name" className="labeltext">
+                <div className="addplayerdivlabel">
+                  <label htmlFor="name" className="addplayerlabeltext">
                     Last Name:
                   </label>
                 </div>
-                <input className="divinput" type="text" id="name" name="name" />
+                <input
+                  className="addplayerdivinput"
+                  type="text"
+                  id="name"
+                  name="name"
+                />
               </div>
               <div className="containeraddplayerform1">
-                <div className="divlabel">
-                  <label htmlFor="age" className="labeltext">
+                <div className="addplayerdivlabel">
+                  <label htmlFor="age" className="addplayerlabeltext">
                     Gender:
                   </label>
                 </div>
                 <input
-                  className="divinput"
+                  className="addplayerdivinput"
                   //   type="number"
                   type="text"
                   id="gender"
@@ -47,46 +67,46 @@ const AddPlayer = (props) => {
                 />
               </div>
               <div className="containeraddplayerform1">
-                <div className="divlabel">
-                  <label htmlFor="team" className="labeltext">
-                    Email Address:
+                <div className="addplayerdivlabel">
+                  <label htmlFor="team" className="addplayerlabeltext">
+                    Email:
                   </label>
                 </div>
                 <input
-                  className="divinput"
+                  className="addplayerdivinput"
                   type="text"
                   id="emailaddress"
                   name="emailaddress"
                 />
               </div>
               <div className="containeraddplayerform1">
-                <div className="divlabel">
-                  <label htmlFor="team" className="labeltext">
-                    Phone Number:
+                <div className="addplayerdivlabel">
+                  <label htmlFor="team" className="addplayerlabeltext">
+                    Phone:
                   </label>
                 </div>
                 <input
-                  className="divinput"
+                  className="addplayerdivinput"
                   type="text"
                   id="phonenumber"
                   name="phonenumber"
                 />
               </div>
               <div className="containeraddplayerform1">
-                <div className="divlabel">
-                  <label htmlFor="team" className="labeltext">
+                <div className="addplayerdivlabel">
+                  <label htmlFor="team" className="addplayerlabeltext">
                     House:
                   </label>
                 </div>
                 <input
-                  className="divinput"
+                  className="addplayerdivinput"
                   type="text"
                   id="house"
                   name="house"
                 />
               </div>
               <div className="containeraddplayerform2">
-                <button type="submit" className="button">
+                <button type="submit" className="addplayerbutton">
                   SUBMIT
                 </button>
               </div>

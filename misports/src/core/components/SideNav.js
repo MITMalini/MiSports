@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/navigation-styles.css";
-
+import { logout } from "../components/firebase-config";
 const SideNav = () => {
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <div className="side-nav">
       <div className="side-nav-logo"></div>
@@ -26,7 +29,7 @@ const SideNav = () => {
               LEADERBOARD
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               to="/upcomingevents"
               activeclassname="active"
@@ -34,7 +37,7 @@ const SideNav = () => {
             >
               UPCOMING EVENTS
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink
               to="/viewallevents"
@@ -74,9 +77,9 @@ const SideNav = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/about" activeclassname="active" className="nav-link">
+            <button className="nav-link-button" onClick={handleLogout}>
               LOG OUT
-            </NavLink>
+            </button>
           </li>
         </ul>
       </div>
