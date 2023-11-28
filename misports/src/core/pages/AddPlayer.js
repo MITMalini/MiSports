@@ -1,20 +1,91 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/desktop-styles.css";
 import "../styles/monitor-styles.css";
 import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
 import Select from "react-select";
+import { projectFirestore } from "../components/firebase-config";
+import { getDocs, query, collection, addDoc } from "firebase/firestore";
 
 const AddPlayer = (props) => {
   const [firstName, setFirstName] = useState([]);
   const [lastName, setLastName] = useState([]);
   const [email, setEmail] = useState([]);
   const [phone, setPhone] = useState([]);
+  const [gender, setGender] = useState([]);
+  const [houses, setHouses] = useState([]);
+  const [selectedHouse, setSelectedHouse] = useState("");
+  const houseCollectionRef = collection(projectFirestore, "House");
+  const playerCollectionRef = collection(projectFirestore, "Player");
 
   const GenderOptions = [
     { _id: "1", value: "Male", label: "Male" },
     { _id: "2", value: "Female", label: "Female" },
   ];
+
+  const handleAddPlayer = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Validate if the player input is not empty
+      if (typeof firstName !== "string" || !firstName.trim()) {
+        console.error("First Name cannot be empty");
+        return;
+      }
+      if (typeof lastName !== "string" || !lastName.trim()) {
+        console.error("Last Name cannot be empty");
+        return;
+      }
+      if (typeof email !== "string" || !email.trim()) {
+        console.error("email cannot be empty");
+        return;
+      }
+      if (typeof phone !== "string" || !phone.trim()) {
+        console.error("phone number cannot be empty");
+        return;
+      }
+      // Add a new sport to the Firestore collection
+      await addDoc(playerCollectionRef, {
+        FirstName: firstName,
+        LastName: lastName,
+        Email: email,
+        Phone: phone,
+        Gender: gender,
+        House: selectedHouse,
+      });
+
+      alert("Player added successfully!"); // Set the success message
+      // Optionally, you can clear the success message after a few seconds
+      setFirstName("");
+      setEmail("");
+      setGender("");
+      setSelectedHouse("");
+      setLastName("");
+      setPhone("");
+      // Optionally, you can navigate to a different page or show a success message
+    } catch (error) {
+      // Handle the error (you can show an error message to the user)
+      console.error("Error adding player:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Firestore instance:", projectFirestore);
+        // Fetch data from Firestore
+        const data = await getDocs(query(houseCollectionRef));
+        setHouses(
+          data.docs.map((doc) => ({ value: doc.id, label: doc.data().Name }))
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <SideNav />
@@ -26,7 +97,7 @@ const AddPlayer = (props) => {
         </div>
         <div className="containeraddplayer1">
           <div className="containeraddplayer2">
-            <form className="containeraddplayerform">
+            <form className="containeraddplayerform" onSubmit={handleAddPlayer}>
               <div className="containeraddplayerform1">
                 <div className="addplayerdivlabel">
                   <label htmlFor="name" className="addplayerlabeltext">
@@ -38,6 +109,11 @@ const AddPlayer = (props) => {
                   type="text"
                   id="name"
                   name="name"
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    console.log("First Name:", firstName);
+                  }}
                 />
               </div>
               <div className="containeraddplayerform1">
@@ -51,6 +127,11 @@ const AddPlayer = (props) => {
                   type="text"
                   id="name"
                   name="name"
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                    console.log("Last Name:", lastName);
+                  }}
                 />
               </div>
               <div className="containeraddplayerform1">
@@ -59,12 +140,19 @@ const AddPlayer = (props) => {
                     Gender:
                   </label>
                 </div>
-                <input
-                  className="addplayerdivinput"
-                  //   type="number"
+                <Select
+                  className="addplayerdivselect"
+                  options={GenderOptions}
                   type="text"
                   id="gender"
                   name="gender"
+                  onChange={(selectedOption) => {
+                    if (selectedOption) {
+                      const gender = selectedOption.value;
+                      setGender(gender);
+                      console.log("Gender:", gender);
+                    }
+                  }}
                 />
               </div>
               <div className="containeraddplayerform1">
@@ -75,9 +163,14 @@ const AddPlayer = (props) => {
                 </div>
                 <input
                   className="addplayerdivinput"
-                  type="text"
+                  type="email"
                   id="emailaddress"
                   name="emailaddress"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    console.log("Email:", email);
+                  }}
                 />
               </div>
               <div className="containeraddplayerform1">
@@ -91,6 +184,11 @@ const AddPlayer = (props) => {
                   type="text"
                   id="phonenumber"
                   name="phonenumber"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    console.log("Phone Number:", phone);
+                  }}
                 />
               </div>
               <div className="containeraddplayerform1">
@@ -99,11 +197,16 @@ const AddPlayer = (props) => {
                     House:
                   </label>
                 </div>
-                <input
-                  className="addplayerdivinput"
-                  type="text"
-                  id="house"
-                  name="house"
+                <Select
+                  className="addplayerdivselect"
+                  onChange={(selectedOption) => {
+                    if (selectedOption) {
+                      const house = selectedOption.label;
+                      setSelectedHouse(house);
+                      console.log("House:", selectedOption.label);
+                    }
+                  }}
+                  options={houses}
                 />
               </div>
               <div className="containeraddplayerform2">

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import "../styles/monitor-styles.css";
 import "../styles/desktop-styles.css";
 import "../styles/phone-styles.css";
+import Select from "react-select";
 import SideNav from "../components/SideNav";
 import { projectFirestore } from "../components/firebase-config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, query } from "firebase/firestore";
 
 const AddEvent = (props) => {
   const [sport, setSport] = useState([]);
+  const [selectedSport, setSelectedSport] = useState([]);
   const [event, setEvent] = useState([]);
   const [date, setDate] = useState([]);
   const [starttime, setStarttime] = useState([]);
@@ -15,7 +17,8 @@ const AddEvent = (props) => {
   const [location, setLocation] = useState([]);
   const [male, setMale] = useState([]);
   const [female, setFemale] = useState([]);
-  const eventCollectionRef = collection(projectFirestore, "Sport");
+  const sportCollectionRef = collection(projectFirestore, "Sport");
+  const eventCollectionRef = collection(projectFirestore, "Event");
 
   const handleAddEvent = async (e) => {
     e.preventDefault();
@@ -29,7 +32,7 @@ const AddEvent = (props) => {
       }
       // Add a new event to the Firestore collection
       await addDoc(eventCollectionRef, {
-        sport: sport,
+        sport: selectedSport,
         eventName: event,
         date: date,
         startTime: starttime,
@@ -41,6 +44,8 @@ const AddEvent = (props) => {
         },
       });
       // Optionally, you can clear the form after submitting
+      setSelectedSport("");
+      setSport("");
       setEvent("");
       setDate("");
       setStarttime("");
@@ -51,9 +56,6 @@ const AddEvent = (props) => {
 
       alert("Event added successfully!"); // Set the success message
       // Optionally, you can clear the success message after a few seconds
-      setTimeout(() => {
-        alert("");
-      }, 5000);
       // Optionally, you can navigate to a different page or show a success message
     } catch (error) {
       // Handle the error (you can show an error message to the user)
@@ -61,6 +63,22 @@ const AddEvent = (props) => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Firestore instance:", projectFirestore);
+        // Fetch data from Firestore
+        const data = await getDocs(query(sportCollectionRef));
+        setSport(
+          data.docs.map((doc) => ({ value: doc.id, label: doc.data().Name }))
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       <SideNav />
@@ -79,11 +97,16 @@ const AddEvent = (props) => {
                     Sport:
                   </label>
                 </div>
-                <input
-                  className="addplayerdivinput"
-                  type="text"
-                  id="name"
-                  name="name"
+                <Select
+                  className="addplayerdivselect"
+                  onChange={(selectedOption) => {
+                    if (selectedOption) {
+                      const sport = selectedOption.label;
+                      setSelectedSport(sport);
+                      console.log("House:", selectedOption.label);
+                    }
+                  }}
+                  options={sport}
                 />
               </div>
               <div className="containeraddplayerform1">

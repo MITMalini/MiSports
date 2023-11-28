@@ -63,6 +63,32 @@
     font-size: 70px;
   }
   /* addplayer */
+  .addplayerdivselect {
+    height: 100%;
+    width: 95%;
+    border-radius: 50px;
+    border: 2px solid #000;
+    appearance: none;
+    background: white;
+  }
+  .css-13cymwt-control {
+    border-color: transparent !important;
+    border-style: none !important;
+    border-radius: none !important;
+    background-color: transparent !important;
+    text-align: left;
+    padding-left: 5%;
+  }
+  .css-t3ipsp-control {
+    border-color: transparent !important;
+    box-shadow: none !important;
+    border-style: none !important;
+    border-radius: none !important;
+    background-color: transparent !important;
+  }
+  .css-qbdosj-Input {
+    display: flex;
+  }
   .containeraddplayer1 {
     display: flex; /* Add this to make it a flex container */
     height: 80%;

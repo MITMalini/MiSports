@@ -48,7 +48,7 @@ const VIEWALLEVENTS = (props) => {
             {events.map((event) => (
               <li key={event.id} className="event-item">
                 {/* Render the specific properties of each event */}
-                {event.Name} - {event.totalPoints}
+                {event.sport} - {event.eventName} - {event.totalPoints}
               </li>
             ))}
           </ul>
