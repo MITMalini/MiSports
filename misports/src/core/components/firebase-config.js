@@ -5,22 +5,16 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCDQZiBFjubFYE0ZzNY7KSDJqOk_3ms1hc",
-  authDomain: "misports-af0ce.firebaseapp.com",
-  projectId: "misports-af0ce",
-  storageBucket: "misports-af0ce.appspot.com",
-  messagingSenderId: "373399957215",
-  appId: "1:373399957215:web:e65030f5b5ad480964c36a",
-  measurementId: "G-F5X55NFZ49",
+  apiKey: "AIzaSyC5ACDuReq4qjWG31Vx2pmImyIzO6Smt1E",
+  authDomain: "misports-5ddb1.firebaseapp.com",
+  projectId: "misports-5ddb1",
+  storageBucket: "misports-5ddb1.appspot.com",
+  messagingSenderId: "223044137002",
+  appId: "1:223044137002:web:b4d26942619ed9507f9353",
+  measurementId: "G-XBRZ6CTJPN",
 };
 
 const app = initializeApp(firebaseConfig);

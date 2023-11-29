@@ -22,6 +22,7 @@ const LEADERBOARD = (props) => {
   const houseCollectionRef = collection(projectFirestore, "House");
 
   const totalPoints = houses.reduce((acc, house) => acc + house.TotalPoints, 0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,7 +35,6 @@ const LEADERBOARD = (props) => {
         );
 
         setHouses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-
         setIsPending(false);
       } catch (error) {
         setError("Error fetching data: " + error.message);
