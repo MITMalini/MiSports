@@ -29,22 +29,22 @@ const SideNav = () => {
               LEADERBOARD
             </NavLink>
           </li>
-          {/* <li>
+          <li>
             <NavLink
-              to="/upcomingevents"
+              to="/pastevents"
               activeclassname="active"
               className="nav-link"
             >
-              UPCOMING EVENTS
+              PAST EVENTS
             </NavLink>
-          </li> */}
+          </li>
           <li>
             <NavLink
               to="/viewallevents"
               activeclassname="active"
               className="nav-link"
             >
-              VIEW ALL EVENTS
+              UPCOMING EVENTS
             </NavLink>
           </li>
 

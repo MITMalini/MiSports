@@ -1,26 +1,26 @@
 @media only screen and (min-width: 992px) and (max-width: 1500px) {
   .side-nav li {
     width: 100%;
-    height: 15%;
+    height: 14%;
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     color: white;
   }
   .side-nav li a {
     font-size: 20px;
-    justify-content:center;
+    justify-content: center;
   }
-  .side-nav-logout{
+  .side-nav-logout {
     width: 100%;
     height: 10%;
     font-size: 20px;
   }
-  .nav-link-button{
+  .nav-link-button {
     text-decoration: none;
     color: white;
     font-weight: 600;
-    background-color: #E94325;
+    background-color: #e94325;
     border: none;
     font-size: 20px;
   }
@@ -28,12 +28,12 @@
     position: fixed;
     width: 20%;
     height: 100vh;
-    background-color: #E94325;
+    background-color: #e94325;
   }
   .side-nav-logo {
     width: 100%;
     height: 15%;
-    background-image: url('./whitelogo.jpg');
+    background-image: url("./whitelogo.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -51,7 +51,7 @@
     height: 100%;
     list-style-type: none;
     margin: 0;
-    padding:0;
+    padding: 0;
   }
   .nav-link {
     text-decoration: none;
@@ -61,18 +61,18 @@
   .nav-link:hover {
     font-size: 25px;
     font-weight: 900;
-     /* Change color on hover */
+    /* Change color on hover */
   }
   .active {
     width: 100%;
     height: 60%;
     font-size: 100px;
-    font-weight: 900; 
+    font-weight: 900;
     color: black;
     background-color: white;
     display: flex;
     justify-content: center; /* Horizontal centering */
-    align-items: center;/* Change color on hover */
+    align-items: center; /* Change color on hover */
   }
 }
 @media only screen and (min-width: 177px) and (max-width: 991px) {
@@ -84,34 +84,112 @@
     justify-content: center;
     color: white;
   }
-  
+
   .side-nav li a {
     font-size: 10px;
   }
-  .side-nav-logout{
+  .side-nav-logout {
     width: 100%;
     height: 10%;
     font-size: 10px;
   }
-  .nav-link-button{
+  .nav-link-button {
     text-decoration: none;
     color: white;
     font-weight: 600;
-    background-color: #E94325;
+    background-color: #e94325;
     border: none;
     font-size: 10px;
   }
 }
 .side-nav {
+  position: fixed;
+  width: 20%;
+  height: 100vh;
+  background-color: #e94325;
+}
+.side-nav-logo {
+  width: 100%;
+  height: 15%;
+  background-image: url("./whitelogo.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.side-nav-options {
+  width: 100%;
+  height: 75%;
+}
+.side-nav-option {
+  width: 100%;
+  height: 20%;
+}
+.side-nav-ul {
+  width: 100%;
+  height: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+.nav-link:hover {
+  font-size: 25px;
+  font-weight: 900; /* Change color on hover */
+}
+.active {
+  width: 100%;
+  height: 60%;
+  font-size: 100px;
+  font-weight: 900;
+  color: black;
+  background-color: white;
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Change color on hover */
+}
+
+@media only screen and (min-width: 1500px) {
+  .side-nav li {
+    width: 100%;
+    height: 14%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .side-nav li a {
+    font-size: 20px;
+    justify-content: center;
+  }
+  .side-nav-logout {
+    width: 100%;
+    height: 10%;
+    font-size: 20px;
+  }
+  .nav-link-button {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    background-color: #e94325;
+    border: none;
+    font-size: 20px;
+  }
+  .side-nav {
     position: fixed;
     width: 20%;
     height: 100vh;
-    background-color: #E94325;
+    background-color: #e94325;
   }
   .side-nav-logo {
     width: 100%;
     height: 15%;
-    background-image: url('./whitelogo.jpg');
+    background-image: url("./whitelogo.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -129,10 +207,8 @@
     height: 100%;
     list-style-type: none;
     margin: 0;
-    padding:0;
+    padding: 0;
   }
-
-
   .nav-link {
     text-decoration: none;
     color: white;
@@ -140,97 +216,18 @@
   }
   .nav-link:hover {
     font-size: 25px;
-    font-weight: 900; /* Change color on hover */
+    font-weight: 900;
+    /* Change color on hover */
   }
   .active {
     width: 100%;
     height: 60%;
     font-size: 100px;
-    font-weight: 900; 
+    font-weight: 900;
     color: black;
     background-color: white;
     display: flex;
     justify-content: center; /* Horizontal centering */
-    align-items: center;/* Change color on hover */
+    align-items: center; /* Change color on hover */
   }
-  
-  @media only screen and (min-width: 1500px) {
-    .side-nav li {
-      width: 100%;
-      height: 16%;
-      display: flex;
-      align-items: center;
-      justify-content:center;
-      color: white;
-    }
-    
-    .side-nav li a {
-      font-size: 20px;
-      justify-content:center;
-  
-    }
-    .side-nav-logout{
-      width: 100%;
-      height: 10%;
-      font-size: 20px;
-    }
-    .nav-link-button{
-      text-decoration: none;
-      color: white;
-      font-weight: 600;
-      background-color: #E94325;
-      border: none;
-      font-size: 20px;
-  
-    }
-    .side-nav {
-      position: fixed;
-      width: 20%;
-      height: 100vh;
-      background-color: #E94325;
-    }
-    .side-nav-logo {
-      width: 100%;
-      height: 15%;
-      background-image: url('./whitelogo.jpg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center center;
-    }
-    .side-nav-options {
-      width: 100%;
-      height: 75%;
-    }
-    .side-nav-option {
-      width: 100%;
-      height: 20%;
-    }
-    .side-nav-ul {
-      width: 100%;
-      height: 100%;
-      list-style-type: none;
-      margin: 0;
-      padding:0;
-    }
-    .nav-link {
-      text-decoration: none;
-      color: white;
-      font-weight: 500;
-    }
-    .nav-link:hover {
-      font-size: 25px;
-      font-weight: 900;
-       /* Change color on hover */
-    }
-    .active {
-      width: 100%;
-      height: 60%;
-      font-size: 100px;
-      font-weight: 900; 
-      color: black;
-      background-color: white;
-      display: flex;
-      justify-content: center; /* Horizontal centering */
-      align-items: center;/* Change color on hover */
-    }
-  }
+}

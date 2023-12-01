@@ -8,6 +8,8 @@ import AddPlayer from "./core/pages/AddPlayer";
 import AddSport from "./core/pages/AddSports";
 import AddEvent from "./core/pages/AddEvent";
 import VIEWALLEVENTS from "./core/pages/ViewAllEvents";
+import PASTEVENTS from "./core/pages/PastEvents";
+import AddPoints from "./core/pages/AddPoints";
 
 // import SideNav from "./core/components/SideNav";
 
@@ -38,6 +40,12 @@ const App = () => {
                 </Routes>
                 <Routes>
                   <Route path="/viewallevents" element={<VIEWALLEVENTS />} />
+                </Routes>
+                <Routes>
+                  <Route path="/pastevents" element={<PASTEVENTS />} />
+                </Routes>
+                <Routes>
+                  <Route path="/addpoints" element={<AddPoints />} />
                 </Routes>
               </>
             }

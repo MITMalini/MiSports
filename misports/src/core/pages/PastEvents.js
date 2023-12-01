@@ -3,16 +3,23 @@ import "../styles/monitor-styles.css";
 import "../styles/desktop-styles.css";
 import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
+import { useNavigate } from "react-router-dom";
 import { projectFirestore } from "../components/firebase-config";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 
-const VIEWALLEVENTS = (props) => {
+const PASTEVENTS = (props) => {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 3;
   const EventCollectionRef = collection(projectFirestore, "Event");
   const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate();
+
+  const handleAddPoints = (event) => {
+    // Navigate to the new page and pass data using state
+    navigate("/addpoints", { state: { eventData: event } });
+  };
 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -28,9 +35,9 @@ const VIEWALLEVENTS = (props) => {
         const data = await getDocs(
           query(
             EventCollectionRef,
-            where("date", ">", formattedDate),
+            where("date", "<", formattedDate),
             // Only fetch events with dates in the future
-            orderBy("date", "asc") // Order events by date in ascending order
+            orderBy("date", "desc") // Order events by date in ascending order
           )
         );
 
@@ -68,7 +75,7 @@ const VIEWALLEVENTS = (props) => {
       <div className="containerDashboard1">
         <div className="containerDashboard2">
           <span className="text">
-            <span>UPCOMING EVENTS</span>
+            <span>PAST EVENTS</span>
           </span>
         </div>
         <ul className="ContainerviewallEvents1">
@@ -138,7 +145,12 @@ const VIEWALLEVENTS = (props) => {
                     </p>
                   </div>
                   <div className="ApplyButtondiv">
-                    <button className="applybutton">APPLY</button>
+                    <button
+                      className="applybutton"
+                      onClick={() => handleAddPoints(event)}
+                    >
+                      ADD POINTS
+                    </button>
                   </div>
                 </li>
               </div>
@@ -166,4 +178,4 @@ const VIEWALLEVENTS = (props) => {
   );
 };
 
-export default VIEWALLEVENTS;
+export default PASTEVENTS;
