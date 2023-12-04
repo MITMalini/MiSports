@@ -10,7 +10,7 @@ import AddEvent from "./core/pages/AddEvent";
 import VIEWALLEVENTS from "./core/pages/ViewAllEvents";
 import PASTEVENTS from "./core/pages/PastEvents";
 import AddPoints from "./core/pages/AddPoints";
-
+import PointsPage from "./core/pages/PointsPage";
 // import SideNav from "./core/components/SideNav";
 
 const App = () => {
@@ -46,6 +46,9 @@ const App = () => {
                 </Routes>
                 <Routes>
                   <Route path="/addpoints" element={<AddPoints />} />
+                </Routes>
+                <Routes>
+                  <Route path="/pointspage" element={<PointsPage />} />
                 </Routes>
               </>
             }

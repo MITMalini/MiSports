@@ -16,9 +16,35 @@ const PASTEVENTS = (props) => {
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
 
-  const handleAddPoints = (event) => {
-    // Navigate to the new page and pass data using state
-    navigate("/addpoints", { state: { eventData: event } });
+  const handleAddPoints = async (event) => {
+    // Get the Firestore document ID of the event
+    const eventDocId = event.id;
+
+    // Create a reference to the "Point" collection
+    const pointsCollectionRef = collection(projectFirestore, "Point");
+
+    try {
+      // Check if there is already a document in "Point" collection with the same EventRef
+      const pointsQuery = query(
+        pointsCollectionRef,
+        where("EventRef", "==", eventDocId)
+      );
+
+      const existingPoints = await getDocs(pointsQuery);
+
+      if (existingPoints.size > 0) {
+        // Points already added for this event, handle accordingly
+        alert("Points already added for this event");
+        navigate("/pointspage", { state: { eventData: event } });
+        // Optionally, you can show a message or take any other action
+      } else {
+        // No points added for this event, navigate to the new page
+        navigate("/addpoints", { state: { eventData: event } });
+      }
+    } catch (error) {
+      console.error("Error checking for existing points:", error.message);
+      // Handle the error as needed
+    }
   };
 
   const currentDate = new Date();

@@ -30,6 +30,14 @@ const AddEvent = (props) => {
         console.error("Event name cannot be empty");
         return;
       }
+      const maleNumber = parseInt(male, 10);
+      const femaleNumber = parseInt(female, 10);
+
+      // Check if the conversion is successful
+      if (isNaN(maleNumber) || isNaN(femaleNumber)) {
+        console.error("Invalid points. Please enter valid numbers.");
+        return;
+      }
       // Add a new event to the Firestore collection
       await addDoc(eventCollectionRef, {
         sport: selectedSport,
@@ -39,8 +47,8 @@ const AddEvent = (props) => {
         endTime: endtime,
         location: location,
         participants: {
-          male: male,
-          female: female,
+          male: maleNumber,
+          female: femaleNumber,
         },
       });
       // Optionally, you can clear the form after submitting

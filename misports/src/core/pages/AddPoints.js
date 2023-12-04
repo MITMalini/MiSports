@@ -5,22 +5,26 @@ import "../styles/phone-styles.css";
 import { useLocation } from "react-router-dom";
 import SideNav from "../components/SideNav";
 import Select from "react-select";
-
-import { useNavigate } from "react-router-dom";
 import { projectFirestore } from "../components/firebase-config";
 import { collection, getDocs, query, addDoc } from "firebase/firestore";
 
 const AddPoints = (props) => {
   const [houses, setHouses] = useState([]);
-  const [eventName, setEventName] = useState([]);
-  const [date, setDate] = useState([]);
+  const location = useLocation();
+  const [eventName, setEventName] = useState(
+    location.state.eventData.eventName
+  );
+  const [date, setDate] = useState(location.state.eventData.date);
   const [selectedHouse1, setSelectedHouse1] = useState("");
   const [selectedHouse2, setSelectedHouse2] = useState("");
   const [selectedHouse3, setSelectedHouse3] = useState("");
-  const [points1, setPoints1] = useState("");
-  const [points2, setPoints2] = useState("");
-  const [points3, setPoints3] = useState("");
-  const location = useLocation();
+  const [points1, setPoints1] = useState();
+  const [points2, setPoints2] = useState();
+  const [points3, setPoints3] = useState();
+  const points1Value = parseInt(points1, 10);
+  const points2Value = parseInt(points2, 10);
+  const points3Value = parseInt(points3, 10);
+
   const eventData = location.state.eventData;
   const houseCollectionRef = collection(projectFirestore, "House");
   const pointsCollectionRef = collection(projectFirestore, "Point");
@@ -34,25 +38,38 @@ const AddPoints = (props) => {
         console.error("Event Name cannot be empty");
         return;
       }
+      // Convert points to numbers
+
+      // Check if the conversion is successful
+      if (isNaN(points1Value) || isNaN(points2Value) || isNaN(points3Value)) {
+        console.error("Invalid points. Please enter valid numbers.");
+        return;
+      }
       // Add a new sport to the Firestore collection
       await addDoc(pointsCollectionRef, {
-        EventRef: eventData.docRef.id,
-        EventName: eventData.eventName,
-        Date: eventData.date,
+        EventRef: eventData.id,
+        EventName: eventName,
+        Date: date,
         firstPlace: {
           House: selectedHouse1,
-          Points: points1,
+          Points: points1Value,
         },
         secondPlace: {
           House: selectedHouse2,
-          Points: points2,
+          Points: points2Value,
         },
         thirdPlace: {
           House: selectedHouse3,
-          Points: points3,
+          Points: points3Value,
         },
       });
-
+      alert("Points added successfully!");
+      setSelectedHouse1("");
+      setSelectedHouse2("");
+      setPoints1("");
+      setSelectedHouse3("");
+      setPoints2("");
+      setPoints3("");
       // Set the success message
       // Optionally, you can clear the success message after a few seconds
       // Optionally, you can navigate to a different page or show a success message
@@ -103,7 +120,7 @@ const AddPoints = (props) => {
                   value={eventData.eventName}
                   onChange={(e) => {
                     setEventName(e.target.value);
-                    console.log("place 1:", points1);
+                    console.log("event name:", eventName);
                   }}
                 />
               </div>
@@ -119,6 +136,10 @@ const AddPoints = (props) => {
                   id="name"
                   name="name"
                   value={eventData.date}
+                  onChange={(e) => {
+                    setDate(e.target.value);
+                    console.log("date:", date);
+                  }}
                 />
               </div>
               <div className="containeraddplayerform1">
@@ -141,7 +162,7 @@ const AddPoints = (props) => {
                 <input
                   className="addpoints"
                   type="number"
-                  id="emailaddress"
+                  id="number-points1"
                   name="emailaddress"
                   placeholder="Points"
                   value={points1}
@@ -171,7 +192,7 @@ const AddPoints = (props) => {
                 <input
                   className="addpoints"
                   type="number"
-                  id="emailaddress"
+                  id="number-points1"
                   name="emailaddress"
                   placeholder="Points"
                   value={points2}
@@ -201,7 +222,7 @@ const AddPoints = (props) => {
                 <input
                   className="addpoints"
                   type="number"
-                  id="emailaddress"
+                  id="number-points1"
                   name="emailaddress"
                   placeholder="Points"
                   value={points3}
