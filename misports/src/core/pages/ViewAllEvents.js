@@ -3,6 +3,7 @@ import "../styles/monitor-styles.css";
 import "../styles/desktop-styles.css";
 import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
+import { useNavigate } from "react-router-dom";
 import { projectFirestore } from "../components/firebase-config";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 
@@ -13,6 +14,7 @@ const VIEWALLEVENTS = (props) => {
   const eventsPerPage = 3;
   const EventCollectionRef = collection(projectFirestore, "Event");
   const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate();
 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -20,6 +22,33 @@ const VIEWALLEVENTS = (props) => {
   const day = String(currentDate.getDate()).padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
   console.log(formattedDate);
+
+  const handleAddTeam = async (event) => {
+    // Get the Firestore document ID of the event
+    const eventDocId = event.id;
+    // Create a reference to the "Point" collection
+    const pointsCollectionRef = collection(projectFirestore, "Point");
+    try {
+      // Check if there is already a document in "Point" collection with the same EventRef
+      const pointsQuery = query(
+        pointsCollectionRef,
+        where("EventRef", "==", eventDocId)
+      );
+      const existingPoints = await getDocs(pointsQuery);
+      if (existingPoints.size > 0) {
+        // Points already added for this event, handle accordingly
+        alert("Team already added for this event");
+        navigate("/teamspage", { state: { eventData: event } });
+        // Optionally, you can show a message or take any other action
+      } else {
+        // No points added for this event, navigate to the new page
+        navigate("/addteam", { state: { eventData: event } });
+      }
+    } catch (error) {
+      console.error("Error checking for existing points:", error.message);
+      // Handle the error as needed
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -138,7 +167,12 @@ const VIEWALLEVENTS = (props) => {
                     </p>
                   </div>
                   <div className="ApplyButtondiv">
-                    <button className="applybutton">APPLY</button>
+                    <button
+                      className="applybutton"
+                      onClick={() => handleAddTeam(event)}
+                    >
+                      APPLY
+                    </button>
                   </div>
                 </li>
               </div>

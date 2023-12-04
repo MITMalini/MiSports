@@ -11,6 +11,7 @@ import VIEWALLEVENTS from "./core/pages/ViewAllEvents";
 import PASTEVENTS from "./core/pages/PastEvents";
 import AddPoints from "./core/pages/AddPoints";
 import PointsPage from "./core/pages/PointsPage";
+import AddTeam from "./core/pages/AddTeam";
 // import SideNav from "./core/components/SideNav";
 
 const App = () => {
@@ -48,7 +49,7 @@ const App = () => {
                   <Route path="/addpoints" element={<AddPoints />} />
                 </Routes>
                 <Routes>
-                  <Route path="/pointspage" element={<PointsPage />} />
+                  <Route path="/addteam" element={<AddTeam />} />
                 </Routes>
               </>
             }
