@@ -21,12 +21,12 @@ const PASTEVENTS = (props) => {
     const eventDocId = event.id;
 
     // Create a reference to the "Point" collection
-    const teamsCollectionRef = collection(projectFirestore, "Team");
+    const PointsCollectionRef = collection(projectFirestore, "Point");
 
     try {
       // Check if there is already a document in "Point" collection with the same EventRef
       const pointsQuery = query(
-        teamsCollectionRef,
+        PointsCollectionRef,
         where("EventRef", "==", eventDocId)
       );
 
@@ -34,8 +34,8 @@ const PASTEVENTS = (props) => {
 
       if (existingPoints.size > 0) {
         // Points already added for this event, handle accordingly
-        alert("Team already added for this event");
-        navigate("/teampage", { state: { eventData: event } });
+        alert("Points already added for this event");
+        navigate("/pointspage", { state: { eventData: event } });
         // Optionally, you can show a message or take any other action
       } else {
         // No points added for this event, navigate to the new page
