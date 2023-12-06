@@ -55,6 +55,7 @@ const AddUser = (props) => {
 
       // Add the document to the "Users" collection
       await addDoc(userCollectionRef, userData);
+      alert("User Added");
       setSelectedHouse("");
     } catch (error) {
       // Handle errors

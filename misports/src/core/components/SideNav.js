@@ -6,6 +6,7 @@ const SideNav = () => {
   const handleLogout = () => {
     logout();
   };
+
   return (
     <div className="side-nav">
       <div className="side-nav-logo"></div>
