@@ -77,6 +77,15 @@ const SideNav = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink
+              to="/addusers"
+              activeclassname="active"
+              className="nav-link"
+            >
+              ADD USERS
+            </NavLink>
+          </li>
+          <li>
             <button className="nav-link-button" onClick={handleLogout}>
               LOG OUT
             </button>

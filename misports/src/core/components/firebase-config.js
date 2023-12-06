@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
@@ -31,6 +32,23 @@ const logInWithEmailAndPassword = async (email, password) => {
     alert("An error occurred while signing in. Please check your credentials.");
   }
 };
+const registerWithEmailAndPassword = async (name, email, password, role) => {
+  try {
+    // You can use the 'auth' instance directly here
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    // Use the 'projectFirestore' instance for Firestore operations
+    console.log("User registered successfully!");
+    return userCredential;
+  } catch (error) {
+    console.error("Error Creating Count in:", error.message);
+    alert(`An error occurred while signing up: ${error.message}`);
+  }
+};
+
 const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
@@ -49,6 +67,7 @@ export {
   projectFirestore,
   logInWithEmailAndPassword,
   signInWithEmailAndPassword,
+  registerWithEmailAndPassword,
   sendPasswordReset,
   sendPasswordResetEmail,
   logout,

@@ -12,6 +12,7 @@ import PASTEVENTS from "./core/pages/PastEvents";
 import AddPoints from "./core/pages/AddPoints";
 import PointsPage from "./core/pages/PointsPage";
 import AddTeam from "./core/pages/AddTeam";
+import AddUser from "./core/pages/AddUsers";
 // import SideNav from "./core/components/SideNav";
 
 const App = () => {
@@ -53,6 +54,9 @@ const App = () => {
                 </Routes>
                 <Routes>
                   <Route path="/pointspage" element={<PointsPage />} />
+                </Routes>
+                <Routes>
+                  <Route path="/addusers" element={<AddUser />} />
                 </Routes>
               </>
             }
