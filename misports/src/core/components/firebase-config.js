@@ -4,7 +4,6 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
-  signOut,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -58,9 +57,6 @@ const sendPasswordReset = async (email) => {
     alert(err.message);
   }
 };
-const logout = () => {
-  signOut(auth);
-};
 
 export {
   auth,
@@ -70,7 +66,5 @@ export {
   registerWithEmailAndPassword,
   sendPasswordReset,
   sendPasswordResetEmail,
-  logout,
-  signOut,
 };
 // Use the 'auth' object for other authentication-related operations.

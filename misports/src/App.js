@@ -14,7 +14,7 @@ import PointsPage from "./core/pages/PointsPage";
 import AddTeam from "./core/pages/AddTeam";
 import AddUser from "./core/pages/AddUsers";
 import Modal from "react-modal";
-// import SideNav from "./core/components/SideNav";
+import SideNav from "./core/components/SideNav";
 Modal.setAppElement("#root");
 const App = () => {
   return (
@@ -58,6 +58,9 @@ const App = () => {
                 </Routes>
                 <Routes>
                   <Route path="/addusers" element={<AddUser />} />
+                </Routes>
+                <Routes>
+                  <Route path="/sidenav" element={<SideNav />} />
                 </Routes>
               </>
             }

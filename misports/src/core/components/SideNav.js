@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/navigation-styles.css";
-import { logout } from "../components/firebase-config";
+import { useLogout } from "../hooks/useLogout";
 const SideNav = () => {
-  const handleLogout = () => {
-    logout();
-  };
+  const { logout } = useLogout();
 
   return (
     <div className="side-nav">
@@ -77,7 +75,7 @@ const SideNav = () => {
               ADD PLAYER
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               to="/addusers"
               activeclassname="active"
@@ -85,9 +83,9 @@ const SideNav = () => {
             >
               ADD USERS
             </NavLink>
-          </li>
+          </li> */}
           <li>
-            <button className="nav-link-button" onClick={handleLogout}>
+            <button className="nav-link-button" onClick={logout}>
               LOG OUT
             </button>
           </li>

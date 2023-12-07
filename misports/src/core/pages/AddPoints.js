@@ -6,10 +6,20 @@ import { useLocation } from "react-router-dom";
 import SideNav from "../components/SideNav";
 import Select from "react-select";
 import { projectFirestore } from "../components/firebase-config";
-import { collection, getDocs, query, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  query,
+  addDoc,
+  setDoc,
+  where,
+} from "firebase/firestore";
 
 const AddPoints = (props) => {
   const [houses, setHouses] = useState([]);
+  const [marks, setMarks] = useState([]);
+
   const location = useLocation();
   const [eventName, setEventName] = useState(
     location.state.eventData.eventName
@@ -18,34 +28,28 @@ const AddPoints = (props) => {
   const [selectedHouse1, setSelectedHouse1] = useState("");
   const [selectedHouse2, setSelectedHouse2] = useState("");
   const [selectedHouse3, setSelectedHouse3] = useState("");
-  const [points1, setPoints1] = useState();
-  const [points2, setPoints2] = useState();
-  const [points3, setPoints3] = useState();
+  const [points1, setPoints1] = useState("");
+  const [points2, setPoints2] = useState("");
+  const [points3, setPoints3] = useState("");
   const points1Value = parseInt(points1, 10);
   const points2Value = parseInt(points2, 10);
   const points3Value = parseInt(points3, 10);
 
   const eventData = location.state.eventData;
   const houseCollectionRef = collection(projectFirestore, "House");
-  const pointsCollectionRef = collection(projectFirestore, "Point");
+  const pointsCollectionRef = collection(projectFirestore, "Points");
 
   const handleAddPoints = async (e) => {
     e.preventDefault();
-
     try {
-      // Validate if the player input is not empty
       if (typeof eventName !== "string" || !eventName.trim()) {
         console.error("Event Name cannot be empty");
         return;
       }
-      // Convert points to numbers
-
-      // Check if the conversion is successful
       if (isNaN(points1Value) || isNaN(points2Value) || isNaN(points3Value)) {
         console.error("Invalid points. Please enter valid numbers.");
         return;
       }
-      // Add a new sport to the Firestore collection
       await addDoc(pointsCollectionRef, {
         EventRef: eventData.id,
         EventName: eventName,
@@ -63,6 +67,10 @@ const AddPoints = (props) => {
           Points: points3Value,
         },
       });
+
+      updateTotalPoints(selectedHouse1, parseInt(points1, 10));
+      updateTotalPoints(selectedHouse2, parseInt(points2, 10));
+      updateTotalPoints(selectedHouse3, parseInt(points3, 10));
       alert("Points added successfully!");
       setSelectedHouse1("");
       setSelectedHouse2("");
@@ -70,14 +78,38 @@ const AddPoints = (props) => {
       setSelectedHouse3("");
       setPoints2("");
       setPoints3("");
-      // Set the success message
-      // Optionally, you can clear the success message after a few seconds
-      // Optionally, you can navigate to a different page or show a success message
     } catch (error) {
-      // Handle the error (you can show an error message to the user)
       console.error("Error adding player:", error.message);
     }
   };
+
+  const updateTotalPoints = async (houseName, points) => {
+    try {
+      const querySnapshot = await getDocs(
+        query(houseCollectionRef, where("Name", "==", houseName))
+      );
+
+      // Check if the document exists
+      if (!querySnapshot.empty) {
+        const docRef = querySnapshot.docs[0].ref;
+
+        const currentPoints = querySnapshot.docs[0].data().TotalPoints || 0;
+
+        await updateDoc(docRef, {
+          TotalPoints: currentPoints + points,
+        });
+
+        console.log(
+          `Points updated for ${houseName}: ${currentPoints + points}`
+        );
+      } else {
+        console.error(`House not found: ${houseName}`);
+      }
+    } catch (error) {
+      console.error("Error updating total points:", error.message);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,6 +119,15 @@ const AddPoints = (props) => {
         setHouses(
           data.docs.map((doc) => ({ value: doc.id, label: doc.data().Name }))
         );
+        setMarks(
+          data.docs.map((doc) => ({
+            value: doc.id,
+            label: `${doc.data().Name} - ${doc.data().TotalPoints}`, // Combine Name and TotalPoints
+            name: doc.data().Name, // Save Name separately if needed
+            totalPoints: doc.data().TotalPoints, // Save TotalPoints separately if needed
+          }))
+        );
+        console.log("all marks", marks);
       } catch (error) {
         console.log(error);
       }

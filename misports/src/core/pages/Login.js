@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/login-styles.css";
+import { useLogin } from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
-import {
-  auth,
-  logInWithEmailAndPassword,
-  sendPasswordReset,
-} from "../components/firebase-config";
+import { auth, sendPasswordReset } from "../components/firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Modal from "react-modal";
 
@@ -14,6 +11,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [user, loading] = useAuthState(auth);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { login, error, isPending } = useLogin();
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -37,9 +35,13 @@ const Login = (props) => {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/dashboard");
+    if (user) {
+      console.log("User logged in with UID:", user.uid);
+      navigate("/dashboard");
+    }
   }, [user, loading, navigate]);
   // }, [user, loading]);
+
   return (
     <div className="container">
       <div className="container01">
@@ -124,7 +126,7 @@ const Login = (props) => {
                   <button
                     type="button"
                     className="button"
-                    onClick={() => logInWithEmailAndPassword(email, password)}
+                    onClick={() => login(email, password)}
                   >
                     LOG IN
                   </button>

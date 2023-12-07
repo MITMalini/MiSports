@@ -14,6 +14,7 @@ const Dashboard = (props) => {
             <span>DASHBOARD</span>
           </span>
         </div>
+        {/* {console.log(role)} */}
       </div>
     </div>
   );
