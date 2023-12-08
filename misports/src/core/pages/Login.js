@@ -29,17 +29,6 @@ const Login = (props) => {
     sendPasswordReset(email);
   };
 
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-    if (user) {
-      console.log("User logged in with UID:", user.uid);
-      navigate("/dashboard");
-    }
-  }, [user, loading, navigate]);
   // }, [user, loading]);
 
   return (

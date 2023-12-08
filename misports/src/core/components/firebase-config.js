@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
@@ -22,15 +21,15 @@ const projectFirestore = getFirestore(app);
 const auth = getAuth(app);
 
 // Example usage of signInWithEmailAndPassword
-const logInWithEmailAndPassword = async (email, password) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    // Redirect or perform actions after a successful login.
-  } catch (error) {
-    console.error("Error signing in:", error);
-    alert("An error occurred while signing in. Please check your credentials.");
-  }
-};
+// const logInWithEmailAndPassword = async (email, password) => {
+//   try {
+//     await signInWithEmailAndPassword(auth, email, password);
+//     // Redirect or perform actions after a successful login.
+//   } catch (error) {
+//     console.error("Error signing in:", error);
+//     alert("An error occurred while signing in. Please check your credentials.");
+//   }
+// };
 const registerWithEmailAndPassword = async (name, email, password, role) => {
   try {
     // You can use the 'auth' instance directly here
@@ -61,8 +60,6 @@ const sendPasswordReset = async (email) => {
 export {
   auth,
   projectFirestore,
-  logInWithEmailAndPassword,
-  signInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
   sendPasswordResetEmail,

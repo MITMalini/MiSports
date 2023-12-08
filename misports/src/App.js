@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { AuthContextProvider } from "./core/context/AuthContext";
 import Login from "./core/pages/Login";
 import Dashboard from "./core/pages/Dashboard";
 import LEADERBOARD from "./core/pages/Leaderboard";
@@ -18,57 +18,57 @@ import SideNav from "./core/components/SideNav";
 Modal.setAppElement("#root");
 const App = () => {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          {/* Display SideNav only for the Home route */}
-          <Route
-            path="/*"
-            element={
-              <>
-                <Routes>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                </Routes>
-                <Routes>
-                  <Route path="/leaderboard" element={<LEADERBOARD />} />
-                </Routes>
-                <Routes>
-                  <Route path="/addplayer" element={<AddPlayer />} />
-                </Routes>
-                <Routes>
-                  <Route path="/addsports" element={<AddSport />} />
-                </Routes>
-                <Routes>
-                  <Route path="/addevent" element={<AddEvent />} />
-                </Routes>
-                <Routes>
-                  <Route path="/viewallevents" element={<VIEWALLEVENTS />} />
-                </Routes>
-                <Routes>
-                  <Route path="/pastevents" element={<PASTEVENTS />} />
-                </Routes>
-                <Routes>
-                  <Route path="/addpoints" element={<AddPoints />} />
-                </Routes>
-                <Routes>
-                  <Route path="/addteam" element={<AddTeam />} />
-                </Routes>
-                <Routes>
-                  <Route path="/pointspage" element={<PointsPage />} />
-                </Routes>
-                <Routes>
-                  <Route path="/addusers" element={<AddUser />} />
-                </Routes>
-                <Routes>
-                  <Route path="/sidenav" element={<SideNav />} />
-                </Routes>
-              </>
-            }
-          />
-          <Route path="/" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <AuthContextProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            {/* Display SideNav only for the Home route */}
+            <Route
+              path="/*"
+              element={
+                <>
+                  <Routes>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/leaderboard" element={<LEADERBOARD />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/addplayer" element={<AddPlayer />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/addsports" element={<AddSport />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/addevent" element={<AddEvent />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/viewallevents" element={<VIEWALLEVENTS />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/pastevents" element={<PASTEVENTS />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/addpoints" element={<AddPoints />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/addteam" element={<AddTeam />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/pointspage" element={<PointsPage />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/addusers" element={<AddUser />} />
+                  </Routes>
+                  {<SideNav />}
+                </>
+              }
+            />
+            <Route path="/" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </AuthContextProvider>
   );
 };
 

@@ -23,6 +23,7 @@
     background-color: #e94325;
     border: none;
     font-size: 20px;
+    margin-top: auto;
   }
   .side-nav {
     position: fixed;
@@ -73,6 +74,12 @@
     display: flex;
     justify-content: center; /* Horizontal centering */
     align-items: center; /* Change color on hover */
+  }
+  .liDiv {
+    height: 80vh;
+  }
+  .logoutButtonDiv {
+    height: 20vh;
   }
 }
 @media only screen and (min-width: 177px) and (max-width: 991px) {
@@ -152,6 +159,12 @@
   justify-content: center; /* Horizontal centering */
   align-items: center; /* Change color on hover */
 }
+.liDiv {
+  height: 80vh;
+}
+.logoutButtonDiv {
+  height: 20vh;
+}
 
 @media only screen and (min-width: 1500px) {
   .side-nav li {
@@ -229,5 +242,11 @@
     display: flex;
     justify-content: center; /* Horizontal centering */
     align-items: center; /* Change color on hover */
+  }
+  .liDiv {
+    height: 80vh;
+  }
+  .logoutButtonDiv {
+    height: 20vh;
   }
 }

@@ -88,17 +88,13 @@ const AddPoints = (props) => {
       const querySnapshot = await getDocs(
         query(houseCollectionRef, where("Name", "==", houseName))
       );
-
       // Check if the document exists
       if (!querySnapshot.empty) {
         const docRef = querySnapshot.docs[0].ref;
-
         const currentPoints = querySnapshot.docs[0].data().TotalPoints || 0;
-
         await updateDoc(docRef, {
           TotalPoints: currentPoints + points,
         });
-
         console.log(
           `Points updated for ${houseName}: ${currentPoints + points}`
         );

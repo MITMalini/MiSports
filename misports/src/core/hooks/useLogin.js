@@ -14,9 +14,13 @@ export const useLogin = () => {
 
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
-
+      {
+        console.log("User data from login:", res.user.uid);
+      }
+      localStorage.setItem("user", JSON.stringify(res.user));
       dispatch({ type: "LOGIN", payload: res.user });
 
+      window.location.replace("/dashboard");
       if (!isCancelled) {
         setError(null);
         setIsPending(false);

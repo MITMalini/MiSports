@@ -1,94 +1,95 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/navigation-styles.css";
 import { useLogout } from "../hooks/useLogout";
-const SideNav = () => {
-  const { logout } = useLogout();
+import { useAuthContext } from "../hooks/useAuthContext";
+import { projectFirestore } from "../components/firebase-config";
+import { getDocs, query, where, collection } from "firebase/firestore";
 
+const SideNav = () => {
+  const { user } = useAuthContext();
+  const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { logout } = useLogout();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("sidenav:", user.uid);
+        const userUid = user.uid;
+        const userCollectionRef = collection(projectFirestore, "Users");
+        const data = await getDocs(
+          query(userCollectionRef, where("UID", "==", userUid))
+        );
+        if (!data.empty) {
+          const userRole = data.docs[0].data().role;
+          setUserRole(userRole); // Update userRole state
+          console.log(`role updated for: ${userRole}`);
+          setLoading(false); // Update loading state
+          setUserRole(userRole);
+        } else {
+          console.error("role not found:");
+          setLoading(false); // Update loading state in case role is not found
+        }
+        console.log("filtered data", userRole); // Move this line here
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+        setLoading(false); // Update loading state in case of an error
+      }
+    };
+
+    fetchData();
+  }, [user]);
+
+  const renderNavigationOptions = () => {
+    const commonOptions = [
+      { label: "DASHBOARD", path: "/dashboard" },
+      { label: "LEADERBOARD", path: "/leaderboard" },
+      { label: "UPCOMING EVENTS", path: "/viewallevents" },
+      { label: "PAST EVENTS", path: "/pastevents" },
+    ];
+    const adminOptions = [
+      { label: "PAST EVENTS", path: "/pastevents" },
+      { label: "ADD SPORTS", path: "/addsports" },
+      { label: "ADD EVENT", path: "/addevent" },
+      { label: "ADD USERS", path: "/addusers" },
+    ];
+    const hrOptions = [{ label: "ADD PLAYER", path: "/addplayer" }];
+
+    if (userRole === "ADMIN") {
+      return [...commonOptions, ...adminOptions];
+    } else if (userRole === "HR") {
+      return [...commonOptions, ...hrOptions];
+    } else {
+      return commonOptions;
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="side-nav">
       <div className="side-nav-logo"></div>
       <div className="side-nav-options">
         <ul className="side-nav-ul">
-          <li>
-            <NavLink
-              to="/dashboard"
-              activeclassname="active"
-              className="nav-link"
-            >
-              DASHBOARD
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/leaderboard"
-              activeclassname="active"
-              className="nav-link"
-            >
-              LEADERBOARD
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/pastevents"
-              activeclassname="active"
-              className="nav-link"
-            >
-              PAST EVENTS
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/viewallevents"
-              activeclassname="active"
-              className="nav-link"
-            >
-              UPCOMING EVENTS
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/addsports"
-              activeclassname="active"
-              className="nav-link"
-            >
-              ADD SPORTS
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/addevent"
-              activeclassname="active"
-              className="nav-link"
-            >
-              ADD EVENT
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/addplayer"
-              activeclassname="active"
-              className="nav-link"
-            >
-              ADD PLAYER
-            </NavLink>
-          </li>
-          {/* <li>
-            <NavLink
-              to="/addusers"
-              activeclassname="active"
-              className="nav-link"
-            >
-              ADD USERS
-            </NavLink>
-          </li> */}
-          <li>
+          <div className="liDiv">
+            {renderNavigationOptions().map((option, index) => (
+              <li key={index}>
+                <NavLink
+                  to={option.path}
+                  activeclassname="active"
+                  className="nav-link"
+                >
+                  {option.label}
+                </NavLink>
+              </li>
+            ))}
+          </div>
+          <div className="logoutButtonDiv">
             <button className="nav-link-button" onClick={logout}>
               LOG OUT
             </button>
-          </li>
+          </div>
         </ul>
       </div>
       <div className="side-nav-logout"></div>
