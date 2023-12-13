@@ -11,26 +11,29 @@ const SideNav = () => {
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
   const { logout } = useLogout();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("sidenav:", user.uid);
-        const userUid = user.uid;
-        const userCollectionRef = collection(projectFirestore, "Users");
-        const data = await getDocs(
-          query(userCollectionRef, where("UID", "==", userUid))
-        );
-        if (!data.empty) {
-          const userRole = data.docs[0].data().role;
-          setUserRole(userRole); // Update userRole state
-          console.log(`role updated for: ${userRole}`);
-          setLoading(false); // Update loading state
-          setUserRole(userRole);
+        if (user) {
+          console.log("sidenav:", user.uid);
+          const userUid = user.uid;
+          const userCollectionRef = collection(projectFirestore, "Users");
+          const data = await getDocs(
+            query(userCollectionRef, where("UID", "==", userUid))
+          );
+          if (!data.empty) {
+            const userRole = data.docs[0].data().role;
+            setUserRole(userRole); // Update userRole state
+            console.log(`role updated for: ${userRole}`);
+          } else {
+            console.error("role not found:");
+          }
+          setLoading(false); // Update loading state outside the if-else block
         } else {
-          console.error("role not found:");
-          setLoading(false); // Update loading state in case role is not found
+          // console.error("User is null");
+          setLoading(false); // Update loading state in case user is null
         }
-        console.log("filtered data", userRole); // Move this line here
       } catch (error) {
         console.error("Error fetching data from Firestore:", error);
         setLoading(false); // Update loading state in case of an error
@@ -48,7 +51,6 @@ const SideNav = () => {
       { label: "PAST EVENTS", path: "/pastevents" },
     ];
     const adminOptions = [
-      { label: "PAST EVENTS", path: "/pastevents" },
       { label: "ADD SPORTS", path: "/addsports" },
       { label: "ADD EVENT", path: "/addevent" },
       { label: "ADD USERS", path: "/addusers" },

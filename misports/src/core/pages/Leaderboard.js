@@ -28,7 +28,6 @@ const LEADERBOARD = (props) => {
       try {
         setIsPending(true);
         console.log("Firestore instance:", projectFirestore);
-
         // Fetch data from Firestore
         const data = await getDocs(
           query(houseCollectionRef, orderBy("TotalPoints", "desc"))

@@ -3,6 +3,7 @@ import "../styles/monitor-styles.css";
 import "../styles/desktop-styles.css";
 import "../styles/phone-styles.css";
 import Select from "react-select";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useLocation } from "react-router-dom";
 import SideNav from "../components/SideNav";
 import { projectFirestore } from "../components/firebase-config";
@@ -10,6 +11,7 @@ import { collection, addDoc, getDocs, query } from "firebase/firestore";
 
 const AddTeam = (props) => {
   const location = useLocation();
+  const { user } = useAuthContext();
   const houseCollectionRef = collection(projectFirestore, "House");
 
   const eventData = location.state.eventData;

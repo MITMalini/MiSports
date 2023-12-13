@@ -10,9 +10,11 @@ import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 const PASTEVENTS = (props) => {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
+  const [points, setPoints] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 3;
   const EventCollectionRef = collection(projectFirestore, "Event");
+  const PointsCollectionRef = collection(projectFirestore, "Point");
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
 
@@ -66,9 +68,16 @@ const PASTEVENTS = (props) => {
             orderBy("date", "desc") // Order events by date in ascending order
           )
         );
-
         // Update the state only if there is data
         setEvents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        const pointsdata = await getDocs(
+          query(PointsCollectionRef, where("date", "<", formattedDate))
+        );
+
+        // Update the state only if there is data
+        setPoints(
+          pointsdata.docs.map((doc) => ({ ...doc.pointsdata(), id: doc.id }))
+        );
       } catch (error) {
         setError("Error fetching data: " + error.message);
       }
