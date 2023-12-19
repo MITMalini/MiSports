@@ -13,6 +13,8 @@ import AddPoints from "./core/pages/AddPoints";
 import PointsPage from "./core/pages/PointsPage";
 import AddTeam from "./core/pages/AddTeam";
 import AddUser from "./core/pages/AddUsers";
+import TeamsPage from "./core/pages/TeamsPage";
+import AppliedTeams from "./core/pages/ViewAppliedTeams";
 import Modal from "react-modal";
 import SideNav from "./core/components/SideNav";
 Modal.setAppElement("#root");
@@ -27,6 +29,7 @@ const App = () => {
               path="/*"
               element={
                 <>
+                  {<SideNav />}
                   <Routes>
                     <Route path="/dashboard" element={<Dashboard />} />
                   </Routes>
@@ -60,7 +63,12 @@ const App = () => {
                   <Routes>
                     <Route path="/addusers" element={<AddUser />} />
                   </Routes>
-                  {<SideNav />}
+                  <Routes>
+                    <Route path="/teamspage" element={<TeamsPage />} />
+                  </Routes>
+                  <Routes>
+                    <Route path="/appliedteams" element={<AppliedTeams />} />
+                  </Routes>
                 </>
               }
             />

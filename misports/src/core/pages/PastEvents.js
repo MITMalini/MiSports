@@ -23,7 +23,7 @@ const PASTEVENTS = (props) => {
     const eventDocId = event.id;
 
     // Create a reference to the "Point" collection
-    const PointsCollectionRef = collection(projectFirestore, "Point");
+    const PointsCollectionRef = collection(projectFirestore, "Points");
 
     try {
       // Check if there is already a document in "Point" collection with the same EventRef

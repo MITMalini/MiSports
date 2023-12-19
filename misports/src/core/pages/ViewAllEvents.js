@@ -6,6 +6,7 @@ import SideNav from "../components/SideNav";
 import { useNavigate } from "react-router-dom";
 import { projectFirestore } from "../components/firebase-config";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const VIEWALLEVENTS = (props) => {
   const [events, setEvents] = useState([]);
@@ -15,6 +16,9 @@ const VIEWALLEVENTS = (props) => {
   const EventCollectionRef = collection(projectFirestore, "Event");
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
+  const { user } = useAuthContext();
+  const [userRole, setUserRole] = useState(null);
+  const [userHouse, setUserHouse] = useState(null);
 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -24,28 +28,48 @@ const VIEWALLEVENTS = (props) => {
   console.log(formattedDate);
 
   const handleAddTeam = async (event) => {
-    // Get the Firestore document ID of the event
     const eventDocId = event.id;
-    // Create a reference to the "Point" collection
-    const pointsCollectionRef = collection(projectFirestore, "Point");
+    const teamCollectionRef = collection(projectFirestore, "Teams");
     try {
-      // Check if there is already a document in "Point" collection with the same EventRef
-      const pointsQuery = query(
-        pointsCollectionRef,
-        where("EventRef", "==", eventDocId)
+      const teamsQuery = query(
+        teamCollectionRef,
+        where("EventData.id", "==", eventDocId),
+        where("House", "==", userHouse)
       );
-      const existingPoints = await getDocs(pointsQuery);
+      const existingPoints = await getDocs(teamsQuery);
       if (existingPoints.size > 0) {
-        // Points already added for this event, handle accordingly
         alert("Team already added for this event");
-        navigate("/teamspage", { state: { eventData: event } });
-        // Optionally, you can show a message or take any other action
+        navigate("/teamspage", {
+          state: {
+            eventData: event,
+            userRole: userRole,
+            userHouse: userHouse,
+          },
+        });
       } else {
         // No points added for this event, navigate to the new page
-        navigate("/addteam", { state: { eventData: event } });
+        navigate("/addteam", {
+          state: {
+            eventData: event,
+            userRole: userRole, // Add userRole to the state
+            userHouse: userHouse,
+          },
+        });
       }
     } catch (error) {
       console.error("Error checking for existing points:", error.message);
+      // Handle the error as needed
+    }
+  };
+  const handleViewTeams = async (event) => {
+    try {
+      navigate("/appliedteams", {
+        state: {
+          eventData: event,
+        },
+      });
+    } catch (error) {
+      console.error("Error navigating to newpage:", error.message);
       // Handle the error as needed
     }
   };
@@ -53,25 +77,55 @@ const VIEWALLEVENTS = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch data from Firestore
-        const data = await getDocs(
+        // Fetch user data
+        if (user) {
+          console.log("sidenav:", user.uid);
+          const userUid = user.uid;
+          const userCollectionRef = collection(projectFirestore, "Users");
+          const userData = await getDocs(
+            query(userCollectionRef, where("UID", "==", userUid))
+          );
+
+          if (!userData.empty) {
+            const fetchedUserRole = userData.docs[0].data().role;
+            setUserRole(fetchedUserRole);
+            console.error(fetchedUserRole);
+            if (
+              fetchedUserRole === "House Captain" ||
+              fetchedUserRole === "House Vice Captain"
+            ) {
+              const fetchedUserHouse = userData.docs[0].data().house;
+              setUserHouse(fetchedUserHouse);
+              console.error(fetchedUserHouse);
+            } else {
+              console.error("Role not found");
+            }
+          }
+        } else {
+          console.error("User is null"); // Update loading state in case user is null
+        }
+
+        // Fetch events data
+        const eventsData = await getDocs(
           query(
             EventCollectionRef,
             where("date", ">", formattedDate),
-            // Only fetch events with dates in the future
-            orderBy("date", "asc") // Order events by date in ascending order
+            orderBy("date", "asc")
           )
         );
 
-        // Update the state only if there is data
-        setEvents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        // Update the state only if there is events data
+        setEvents(
+          eventsData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
       } catch (error) {
-        setError("Error fetching data: " + error.message);
+        console.error("Error fetching data from Firestore:", error);
+        setError("Error fetching data: " + error.message); // Update loading state in case of an error
       }
     };
 
     fetchData();
-  }, []); // Empty dependency array to run the effect only once on mount
+  }, [user, formattedDate]); // Empty dependency array to run the effect only once on mount
 
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
@@ -167,12 +221,21 @@ const VIEWALLEVENTS = (props) => {
                     </p>
                   </div>
                   <div className="ApplyButtondiv">
-                    <button
-                      className="applybutton"
-                      onClick={() => handleAddTeam(event)}
-                    >
-                      APPLY
-                    </button>
+                    {userRole === "ADMIN" ? (
+                      <button
+                        className="applybutton"
+                        onClick={() => handleViewTeams(event)}
+                      >
+                        VIEW TEAMS
+                      </button>
+                    ) : (
+                      <button
+                        className="applybutton"
+                        onClick={() => handleAddTeam(event)}
+                      >
+                        ADD TEAM
+                      </button>
+                    )}
                   </div>
                 </li>
               </div>

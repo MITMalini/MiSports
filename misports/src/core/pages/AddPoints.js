@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/monitor-styles.css";
 import "../styles/desktop-styles.css";
 import "../styles/phone-styles.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SideNav from "../components/SideNav";
 import Select from "react-select";
 import { projectFirestore } from "../components/firebase-config";
@@ -34,7 +34,7 @@ const AddPoints = (props) => {
   const points1Value = parseInt(points1, 10);
   const points2Value = parseInt(points2, 10);
   const points3Value = parseInt(points3, 10);
-
+  const navigate = useNavigate();
   const eventData = location.state.eventData;
   const houseCollectionRef = collection(projectFirestore, "House");
   const pointsCollectionRef = collection(projectFirestore, "Points");
@@ -78,6 +78,7 @@ const AddPoints = (props) => {
       setSelectedHouse3("");
       setPoints2("");
       setPoints3("");
+      navigate("/pointspage", { state: { eventData: eventData } });
     } catch (error) {
       console.error("Error adding player:", error.message);
     }

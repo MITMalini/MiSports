@@ -7,7 +7,7 @@ import SideNav from "../components/SideNav";
 import { projectFirestore } from "../components/firebase-config";
 import { collection, addDoc, getDocs, query } from "firebase/firestore";
 
-const AddEvent = (props) => {
+const AddEvent = () => {
   const [sport, setSport] = useState([]);
   const [selectedSport, setSelectedSport] = useState([]);
   const [event, setEvent] = useState([]);

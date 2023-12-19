@@ -29,19 +29,23 @@ const AddPlayer = (props) => {
     try {
       // Validate if the player input is not empty
       if (typeof firstName !== "string" || !firstName.trim()) {
-        console.error("First Name cannot be empty");
+        alert("First Name cannot be empty");
         return;
       }
       if (typeof lastName !== "string" || !lastName.trim()) {
-        console.error("Last Name cannot be empty");
+        alert("Last Name cannot be empty");
         return;
       }
       if (typeof email !== "string" || !email.trim()) {
-        console.error("email cannot be empty");
+        alert("email cannot be empty");
+        return;
+      }
+      if (typeof gender !== "string" || !gender.trim()) {
+        alert("gender cannot be empty, Please select Again");
         return;
       }
       if (typeof phone !== "string" || !phone.trim()) {
-        console.error("phone number cannot be empty");
+        alert("phone number cannot be empty");
         return;
       }
       // Add a new sport to the Firestore collection
@@ -58,8 +62,6 @@ const AddPlayer = (props) => {
       // Optionally, you can clear the success message after a few seconds
       setFirstName("");
       setEmail("");
-      setGender("");
-      setSelectedHouse("");
       setLastName("");
       setPhone("");
       // Optionally, you can navigate to a different page or show a success message

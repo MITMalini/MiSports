@@ -3,18 +3,14 @@ import "../styles/monitor-styles.css";
 import "../styles/desktop-styles.css";
 import "../styles/phone-styles.css";
 import SideNav from "../components/SideNav";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import goldMedalImage from "../Images/1stPlace.jpg";
-import silverMedalImage from "../Images/2ndPlace.jpg";
-import bronzeMedalImage from "../Images/3rdPlace.jpg";
+import { useLocation, useNavigate } from "react-router-dom";
 import { projectFirestore } from "../components/firebase-config";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
-const pointsCollectionRef = collection(projectFirestore, "Point");
+const pointsCollectionRef = collection(projectFirestore, "Points");
 
 const PointsPage = (props) => {
   const location = useLocation();
-  const eventData = location.state.eventData;
+  const event = location.state.eventData;
   const [eventName, setEventName] = useState(
     location.state.eventData.eventName
   );

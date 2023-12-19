@@ -443,4 +443,102 @@
     padding-left: 5%;
     padding-right: 5%;
   }
+  /* register team */
+  .addplayerstoeventdivselect {
+    height: 100px;
+    width: 95%;
+    border-radius: 30px;
+    border: 2px solid #000;
+    appearance: none;
+    background: white;
+    padding-left: 10px;
+  }
+  .addplayerdivinputparticipants {
+    height: 90%;
+    width: 32%;
+    border-radius: 50px;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .css-3w2yfm-ValueContainer {
+    height: 90px;
+    width: 95%;
+    border-radius: 10px;
+    appearance: none;
+    padding-left: 10px;
+  }
+  .containeraddteamform {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    align-items: flex-start; /* Vertical centering */
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 0;
+  }
+  /* view Team */
+  .viewTeam {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  .containerviewteamform1 {
+    display: flex;
+    flex-direction: row;
+  }
+  .viewTeam1 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .olContainer {
+    list-style-type: decimal;
+    margin-left: 20px;
+    padding-inline-start: 0px;
+    margin-inline-end: 15px;
+    margin-inline-start: 5px;
+    /* Add more styles as needed */
+  }
+  .liContainer {
+    padding-top: 5px;
+    padding-left: 10px;
+    display: list-item;
+    text-align: start;
+  }
+  /* View all Applied Teams */
+  .mainviewalldiv {
+    height: 80vh;
+    flex-direction: row;
+  }
+  .grid-container {
+    flex-direction: row;
+    height: 65%;
+  }
+  .grid-item {
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    width: 40%;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+  }
+  .containerviewPlayer {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 3%;
+    display: flex;
+    width: 80%;
+    height: 10%;
+    align-items: flex-start; /* Vertical centering */
+    justify-content: space-between;
+    flex-direction: column;
+    margin-top: 0;
+  }
+  .House-Name {
+    color: red;
+    font-size: 30px;
+    font-weight: 900;
+  }
 }
