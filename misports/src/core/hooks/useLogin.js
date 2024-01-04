@@ -20,7 +20,7 @@ export const useLogin = () => {
       localStorage.setItem("user", JSON.stringify(res.user));
       dispatch({ type: "LOGIN", payload: res.user });
 
-      window.location.replace("/dashboard");
+      window.location.replace("/leaderboard");
       if (!isCancelled) {
         setError(null);
         setIsPending(false);

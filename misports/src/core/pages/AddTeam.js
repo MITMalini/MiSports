@@ -71,7 +71,7 @@ const AddTeam = (props) => {
       // Optionally, you can clear the form after submitting
 
       alert("Team added successfully!");
-      navigate("/dashboard"); // Set the success message
+      navigate("/leaderboard"); // Set the success message
       // Optionally, you can clear the success message after a few seconds
       // Optionally, you can navigate to a different page or show a success message
     } catch (error) {

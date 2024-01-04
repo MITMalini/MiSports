@@ -527,10 +527,9 @@
   .containerviewPlayer {
     padding-left: 5%;
     padding-right: 5%;
-    padding-bottom: 3%;
     display: flex;
-    width: 80%;
-    height: 10%;
+    width: 90%;
+    height: 15%;
     align-items: flex-start; /* Vertical centering */
     justify-content: space-between;
     flex-direction: column;
@@ -540,5 +539,36 @@
     color: red;
     font-size: 30px;
     font-weight: 900;
+  }
+  .text-sub {
+    color: #e94325;
+    height: auto;
+    font-size: 5vh;
+    text-align: left;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    padding-top: 3%;
+  }
+  .viewappliedTeamsbutton {
+    color: #e94325;
+    width: 50%;
+    height: 60px;
+    font-size: 20px;
+    margin: 2%;
+    font-style: normal;
+    font-weight: 900;
+    border-width: 0px;
+    border-radius: 20px;
+  }
+  .button-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(3, 1fr); /* 3 rows */
+    gap: 10px; /* Gap between buttons */
+    justify-content: center; /* Center along the horizontal axis */
+    align-items: center; /* Center along the vertical axis */
+    margin-left: 15%;
   }
 }

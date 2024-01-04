@@ -19,6 +19,16 @@ const AppliedTeams = (props) => {
   const [house, setHouse] = useState(location.state.userHouse);
   const [teamData, setTeamData] = useState([]);
   const teamCollectionRef = collection(projectFirestore, "Teams");
+  const navigate = useNavigate();
+
+  const handleViewTeams = (team) => {
+    navigate("/teamspage", {
+      state: {
+        eventData: location.state.eventData,
+        userHouse: team.House,
+      },
+    });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,24 +51,6 @@ const AppliedTeams = (props) => {
 
     fetchData();
   }, []); // Empty dependency array to run the effect only once on mount
-  const maleParticipantsH1 = teamData[0]?.MaleParticipants;
-  const femaleParticipantsH1 = teamData[0]?.FemaleParticipants;
-  const House1 = teamData[0]?.House;
-  const maleParticipantsH2 = teamData[1]?.MaleParticipants;
-  const femaleParticipantsH2 = teamData[1]?.FemaleParticipants;
-  const House2 = teamData[1]?.House;
-  const maleParticipantsH3 = teamData[2]?.MaleParticipants;
-  const femaleParticipantsH3 = teamData[2]?.FemaleParticipants;
-  const House3 = teamData[2]?.House;
-  const maleParticipantsH4 = teamData[3]?.MaleParticipants;
-  const femaleParticipantsH4 = teamData[3]?.FemaleParticipants;
-  const House4 = teamData[3]?.House;
-  const maleParticipantsH5 = teamData[4]?.MaleParticipants;
-  const femaleParticipantsH5 = teamData[4]?.FemaleParticipants;
-  const House5 = teamData[4]?.House;
-  const maleParticipantsH6 = teamData[5]?.MaleParticipants;
-  const femaleParticipantsH6 = teamData[5]?.FemaleParticipants;
-  const House6 = teamData[5]?.House;
 
   return (
     <div>
@@ -101,28 +93,20 @@ const AppliedTeams = (props) => {
             />
           </div>
         </div>
-        <div className="grid-container">
+        <div className="containerDashboard2">
+          <span className="text-sub">
+            <span>APPLIED TEAMS</span>
+          </span>
+        </div>
+        <div className="button-container">
           {teamData.map((team, index) => (
-            <div key={index} className="grid-item">
-              <p className="House-Name">{team?.House}</p>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Male Participants</th>
-                    <th>Female Participants</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {team?.MaleParticipants.map((maleParticipant, index) => (
-                    <tr key={index}>
-                      <td>{maleParticipant}</td>
-                      {/* Render corresponding Female Participant, or an empty cell if not available */}
-                      <td>{team?.FemaleParticipants[index] || ""}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <button
+              className="viewappliedTeamsbutton"
+              key={index}
+              onClick={() => handleViewTeams(team)}
+            >
+              {team.House}
+            </button>
           ))}
         </div>
       </div>

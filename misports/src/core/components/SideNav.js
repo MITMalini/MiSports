@@ -45,7 +45,7 @@ const SideNav = () => {
 
   const renderNavigationOptions = () => {
     const commonOptions = [
-      { label: "DASHBOARD", path: "/dashboard" },
+      // { label: "DASHBOARD", path: "/dashboard" },
       { label: "LEADERBOARD", path: "/leaderboard" },
       { label: "UPCOMING EVENTS", path: "/viewallevents" },
       { label: "PAST EVENTS", path: "/pastevents" },

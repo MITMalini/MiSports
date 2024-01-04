@@ -6,10 +6,12 @@ import SideNav from "../components/SideNav";
 import { useNavigate } from "react-router-dom";
 import { projectFirestore } from "../components/firebase-config";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const PASTEVENTS = (props) => {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
+  const { user } = useAuthContext();
   const [points, setPoints] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 3;
@@ -17,7 +19,8 @@ const PASTEVENTS = (props) => {
   const PointsCollectionRef = collection(projectFirestore, "Point");
   const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
-
+  const [userRole, setUserRole] = useState(null);
+  const [userHouse, setUserHouse] = useState(null);
   const handleAddPoints = async (event) => {
     // Get the Firestore document ID of the event
     const eventDocId = event.id;
@@ -40,8 +43,11 @@ const PASTEVENTS = (props) => {
         navigate("/pointspage", { state: { eventData: event } });
         // Optionally, you can show a message or take any other action
       } else {
-        // No points added for this event, navigate to the new page
-        navigate("/addpoints", { state: { eventData: event } });
+        if (userRole == "House Captain" || userRole == "House Vice  Captain") {
+          alert("Points not yet Added for this event.");
+        } else {
+          navigate("/addpoints", { state: { eventData: event } });
+        }
       }
     } catch (error) {
       console.error("Error checking for existing points:", error.message);
@@ -59,6 +65,32 @@ const PASTEVENTS = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (user) {
+          console.log("sidenav:", user.uid);
+          const userUid = user.uid;
+          const userCollectionRef = collection(projectFirestore, "Users");
+          const userData = await getDocs(
+            query(userCollectionRef, where("UID", "==", userUid))
+          );
+
+          if (!userData.empty) {
+            const fetchedUserRole = userData.docs[0].data().role;
+            setUserRole(fetchedUserRole);
+            console.error(fetchedUserRole);
+            if (
+              fetchedUserRole === "House Captain" ||
+              fetchedUserRole === "House Vice Captain"
+            ) {
+              const fetchedUserHouse = userData.docs[0].data().house;
+              setUserHouse(fetchedUserHouse);
+              console.error(fetchedUserHouse);
+            } else {
+              console.error("Role not found");
+            }
+          }
+        } else {
+          console.error("User is null"); // Update loading state in case user is null
+        }
         // Fetch data from Firestore
         const data = await getDocs(
           query(
